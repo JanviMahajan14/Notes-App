@@ -2,13 +2,26 @@ const chalk = require('chalk');
 const yargs = require('yargs');
 const notes = require('./notes.js');
 
-console.log(chalk.cyanBright.inverse(notes.getNotes()));
+console.log(chalk.blue.inverse(notes.getNotes()));
 
 yargs.command({
     command:"add",
     description:"Adding a note",
-    handler:function(){
-        console.log(chalk.green.inverse("Adding a note.."))
+    builder:{
+        title:{
+            describe:"Note title",
+            demandOption:true,
+            type:"string"
+        },
+        body:{
+            describe:"Note body",
+            demandOption:true,
+            type:"string"
+        }
+    },
+    handler:function(argv){
+        console.log(chalk.green.inverse("Adding a note..")+ " " + argv.title+" "+argv.body)
+        notes.addNote(argv.title,argv.body);
     }
 })
 
@@ -32,7 +45,7 @@ yargs.command({
     command:"list",
     description:"Listing a note",
     handler:function(){
-        console.log(chalk.blue.inverse("Listing a note.."))
+        console.log(chalk.magentaBright.inverse("Listing your notes.."))
     }
 })
 .parse()
