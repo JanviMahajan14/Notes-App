@@ -59,6 +59,7 @@ yargs.command({
     description:"Listing a note",
     handler:function(){
         console.log(chalk.magentaBright.inverse("Listing your notes.."))
+        notes.listNotes();
     }
 })
 .parse()
