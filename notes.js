@@ -8,11 +8,10 @@ const getNotes = () => {
 const addNote = (title,body) => {
     const notes = loadNotes(title,body);
     //Restrict adding a note if title is already present
-    let titleTaken = "";
-    titleTaken = notes.filter((values)=>{
+    titleTaken = notes.find((values)=>{
         return values.title === title;
     })
-    if(titleTaken.length > 0){
+    if(titleTaken){
         return console.log(chalk.red.inverse("Title already present.."));
     }
 
@@ -37,6 +36,15 @@ const removeNote = (title,body) =>{
         return console.log(chalk.cyan.inverse("No such note found!!"));
     }
     return console.log(chalk.cyan.inverse("Note Removed.."));
+}
+
+const readNote = (title,body) =>{
+    const notes = loadNotes(title,body);
+    notes.forEach((values)=>{
+        if(values.title === title && values.body === body){
+            return console.log(chalk.blue.inverse(values.title + " " + values.body));
+        }
+    })
 }
 
 const listNotes = (title,body) =>{
@@ -68,5 +76,6 @@ module.exports={
     getNotes,
     addNote,
     removeNote,
+    readNote,
     listNotes
 }

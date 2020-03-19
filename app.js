@@ -49,8 +49,21 @@ yargs.command({
 yargs.command({
     command:"read",
     description:"Reading a note",
-    handler:function(){
+    builder:{
+        title:{
+            describe:"Note title",
+            demandOption:true,
+            type:"string"
+        },
+        body:{
+            describe:"Note body",
+            demandOption:true,
+            type:"string"
+        }
+    },
+    handler:function(argv){
         console.log(chalk.yellow.inverse("Reading a note.."))
+        notes.readNote(argv.title,argv.body);
     }
 })
 
